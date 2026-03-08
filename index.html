@@ -1,268 +1,419 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hello, Web — moltbot sample</title>
-    <meta name="description" content="GitHub Pages で公開できるシンプルなサンプルサイト" />
-    <meta property="og:title" content="Hello, Web" />
-    <meta property="og:description" content="GitHub Pages 用のサンプルホームページ" />
-    <meta property="og:type" content="website" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私のポートフォリオ</title>
     <style>
-      :root{
-        --bg: #0b1020;
-        --card: rgba(255,255,255,.06);
-        --card2: rgba(255,255,255,.10);
-        --text: rgba(255,255,255,.92);
-        --muted: rgba(255,255,255,.72);
-        --line: rgba(255,255,255,.16);
-        --accent: #7c5cff;
-        --accent2: #00d2ff;
-        --shadow: 0 20px 60px rgba(0,0,0,.45);
-        --radius: 18px;
-      }
-      *{ box-sizing:border-box; }
-      body{
-        margin:0;
-        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-        color: var(--text);
-        background:
-          radial-gradient(1200px 800px at 20% 10%, rgba(124,92,255,.35), transparent 60%),
-          radial-gradient(900px 700px at 90% 20%, rgba(0,210,255,.25), transparent 55%),
-          radial-gradient(900px 700px at 60% 95%, rgba(255,86,246,.16), transparent 55%),
-          linear-gradient(180deg, #070a14, var(--bg));
-        min-height:100vh;
-      }
-      a{ color: inherit; }
-      .wrap{
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 42px 18px 70px;
-      }
-      header{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap: 12px;
-      }
-      .brand{
-        display:flex;
-        align-items:center;
-        gap: 12px;
-      }
-      .logo{
-        width: 42px;
-        height: 42px;
-        border-radius: 14px;
-        background: linear-gradient(135deg, var(--accent), var(--accent2));
-        box-shadow: 0 14px 40px rgba(124,92,255,.25);
-      }
-      .brand h1{
-        font-size: 16px;
-        letter-spacing: .06em;
-        margin:0;
-        color: rgba(255,255,255,.9);
-      }
-      nav{
-        display:flex;
-        gap: 10px;
-        flex-wrap:wrap;
-        justify-content:flex-end;
-      }
-      .pill{
-        display:inline-flex;
-        align-items:center;
-        gap: 8px;
-        padding: 9px 12px;
-        border: 1px solid var(--line);
-        background: rgba(255,255,255,.04);
-        border-radius: 999px;
-        text-decoration:none;
-        color: rgba(255,255,255,.86);
-        transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      }
-      .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.22); }
+        :root {
+            --primary-color: #a76cf9;
+            --secondary-color: #6c7ff9;
+            --text-color-light: #f0f0f0;
+            --text-color-dark: #333;
+            --background-gradient-start: #1a1a2e;
+            --background-gradient-end: #16213e;
+            --card-bg-start: rgba(255, 255, 255, 0.08);
+            --card-bg-end: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
 
-      .hero{
-        margin-top: 26px;
-        padding: 28px;
-        border-radius: var(--radius);
-        background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-        border: 1px solid rgba(255,255,255,.14);
-        box-shadow: var(--shadow);
-        overflow:hidden;
-        position:relative;
-      }
-      .hero:before{
-        content:"";
-        position:absolute;
-        inset:-2px;
-        background: radial-gradient(600px 320px at 30% 10%, rgba(124,92,255,.35), transparent 55%),
-                    radial-gradient(520px 320px at 75% 30%, rgba(0,210,255,.22), transparent 55%);
-        filter: blur(18px);
-        opacity:.9;
-        pointer-events:none;
-      }
-      .hero > *{ position:relative; }
-      .hero h2{
-        margin:0;
-        font-size: clamp(28px, 4vw, 44px);
-        letter-spacing: .01em;
-        line-height: 1.05;
-      }
-      .hero p{
-        margin: 14px 0 0;
-        color: var(--muted);
-        font-size: 16px;
-        line-height: 1.7;
-        max-width: 64ch;
-      }
-      .ctaRow{
-        margin-top: 18px;
-        display:flex;
-        gap: 10px;
-        flex-wrap:wrap;
-      }
-      .btn{
-        display:inline-flex;
-        align-items:center;
-        justify-content:center;
-        padding: 12px 14px;
-        border-radius: 12px;
-        border: 1px solid rgba(255,255,255,.18);
-        text-decoration:none;
-        background: rgba(255,255,255,.06);
-        color: rgba(255,255,255,.92);
-        transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      }
-      .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.24); }
-      .btn.primary{
-        background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,210,255,.75));
-        border-color: rgba(255,255,255,.26);
-        color: #08101f;
-        font-weight: 700;
-      }
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--background-gradient-start) 0%, var(--background-gradient-end) 100%);
+            color: var(--text-color-light);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
 
-      .grid{
-        margin-top: 18px;
-        display:grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 12px;
-      }
-      .card{
-        grid-column: span 6;
-        padding: 18px;
-        border-radius: var(--radius);
-        background: var(--card);
-        border: 1px solid rgba(255,255,255,.12);
-      }
-      .card h3{ margin:0 0 8px; font-size: 16px; }
-      .card p{ margin:0; color: var(--muted); line-height: 1.7; }
-      .card small{ color: rgba(255,255,255,.62); }
+        h1, h2, h3 {
+            font-weight: 600;
+            color: var(--text-color-light);
+        }
 
-      .footer{
-        margin-top: 26px;
-        padding: 18px;
-        border-radius: var(--radius);
-        background: rgba(0,0,0,.18);
-        border: 1px solid rgba(255,255,255,.10);
-        color: rgba(255,255,255,.66);
-        display:flex;
-        justify-content:space-between;
-        gap: 12px;
-        flex-wrap:wrap;
-      }
-      code{
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        font-size: .95em;
-        padding: .15em .35em;
-        border-radius: 8px;
-        background: rgba(255,255,255,.06);
-        border: 1px solid rgba(255,255,255,.10);
-      }
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-      @media (max-width: 760px){
-        .card{ grid-column: span 12; }
-        header{ align-items:flex-start; }
-      }
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color-light);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            margin: 0 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--text-color-light);
+            outline-offset: 3px;
+        }
+
+        header {
+            background: var(--card-bg-start);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: var(--text-color-light);
+            margin: 0 15px;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a:focus-visible::after {
+            width: 100%;
+        }
+
+        nav a:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            background: var(--card-bg-end); /* Default slightly darker glass */
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 30px var(--shadow-color);
+        }
+
+        #hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: var(--card-bg-start); /* Lighter glass for hero */
+            backdrop-filter: blur(15px);
+        }
+
+        #hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin-bottom: 40px;
+            color: var(--text-color-light);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -15px;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: var(--card-bg-start);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: left;
+            box-shadow: 0 6px 20px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 50px;
+        }
+
+        .skill-chip {
+            background: var(--card-bg-start);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-color-light);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: background 0.3s ease;
+        }
+
+        .skill-chip:hover {
+            background: var(--secondary-color);
+        }
+
+        .skill-chip:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 3px;
+            border-radius: 20px;
+        }
+
+        #contact .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        #contact .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            color: var(--text-color-light);
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #contact .contact-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-color);
+            color: var(--text-color-light); /* Keep text white on hover */
+        }
+
+        #contact .contact-links a:focus-visible {
+            outline: 2px solid var(--text-color-light);
+            outline-offset: 3px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--background-gradient-start);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-color-light);
+            font-size: 0.9rem;
+        }
+
+        /* Basic Responsiveness */
+        @media (max-width: 768px) {
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+
+            #hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            nav {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            nav a {
+                margin: 5px 0;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                margin: 10px 0;
+                width: 80%;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <header>
-        <div class="brand" aria-label="site brand">
-          <div class="logo" aria-hidden="true"></div>
-          <h1>Hello, Web</h1>
-        </div>
-        <nav aria-label="site navigation">
-          <a class="pill" href="#about">About</a>
-          <a class="pill" href="#links">Links</a>
-          <a class="pill" href="#howto">How-to</a>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#hero">ホーム</a>
+            <a href="#about">私について</a>
+            <a href="#works">実績</a>
+            <a href="#skills">スキル</a>
+            <a href="#contact">お問い合わせ</a>
         </nav>
-      </header>
+    </header>
 
-      <main>
-        <section class="hero" aria-label="hero">
-          <h2>GitHub Pages 用の<br />サンプルホームページ</h2>
-          <p>
-            これは <code>index.html</code> だけで動く、軽量・1ファイル構成のテンプレです。
-            GitHub Pages にコミットして公開できます。テキストとリンクを差し替えるだけで、すぐ自分のページになります。
-          </p>
-          <div class="ctaRow">
-            <a class="btn primary" href="https://github.com/moltdxel/helloweb" target="_blank" rel="noreferrer">Repo を開く</a>
-            <a class="btn" href="#howto">公開手順を見る</a>
-          </div>
+    <main>
+        <section id="hero">
+            <h1>モダンなデザインと堅牢なコードで、あなたのアイデアを現実に。</h1>
+            <p>UI/UXに配慮した、魅力的で使いやすいウェブサイト・アプリケーションを開発します。</p>
+            <div>
+                <button onclick="document.getElementById('works').scrollIntoView({ behavior: 'smooth' });">実績を見る</button>
+                <button onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">お問い合わせ</button>
+            </div>
         </section>
 
-        <section class="grid" aria-label="content">
-          <article id="about" class="card">
-            <h3>About</h3>
-            <p>
-              目的は「最小構成で、ちゃんと見栄えする」こと。
-              余計なビルドや依存を入れず、Vibe コーディングの初速を上げます。
-            </p>
-          </article>
-
-          <article id="links" class="card">
-            <h3>Links</h3>
-            <p>
-              <a href="https://pages.github.com/" target="_blank" rel="noreferrer">GitHub Pages</a> /
-              <a href="https://docs.github.com/en/pages" target="_blank" rel="noreferrer">Docs</a> /
-              <a href="https://github.com/moltdxel" target="_blank" rel="noreferrer">@moltdxel</a>
-            </p>
-            <p style="margin-top:10px"><small>必要なら OGP 画像や favicon も足せます。</small></p>
-          </article>
-
-          <article id="howto" class="card">
-            <h3>How to publish (メモ)</h3>
-            <p>
-              GitHub → <code>Settings</code> → <code>Pages</code> → <code>Build and deployment</code> で
-              Branch を <code>main</code> / <code>/(root)</code> に設定。
-              反映後、数十秒〜数分で公開URLが出ます。
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Next ideas</h3>
-            <p>
-              ・作品一覧（カード）<br />
-              ・SNSリンク（X/GitHub/Blog）<br />
-              ・お問い合わせ（メールリンク or フォーム）<br />
-              ・ダーク/ライト切替
-            </p>
-          </article>
+        <section id="about">
+            <h2 class="section-title">私について</h2>
+            <p>こんにちは！私はあなたのアイデアを形にするフルスタック開発者です。</p>
+            <p>常に最新の技術を学び、ユーザー中心の設計を心がけています。デザインと機能性のバランスの取れた、高品質なソリューションを提供することに情熱を注いでいます。</p>
+            <p>特に、モダンなフレームワークを使ったフロントエンド開発と、スケーラブルなバックエンドシステムの構築が得意です。</p>
         </section>
 
-        <section class="footer" aria-label="footer">
-          <div>© <span id="y"></span> Hello, Web</div>
-          <div>Made with <code>index.html</code> only.</div>
+        <section id="works">
+            <h2 class="section-title">実績</h2>
+            <div class="cards-container">
+                <article class="card">
+                    <h3>プロジェクトA：レスポンシブECサイト</h3>
+                    <p>ユーザーフレンドリーなインターフェースと高速なパフォーマンスを特徴とする、完全レスポンシブなオンラインストアを構築しました。Next.jsとFirebaseを使用しています。</p>
+                </article>
+                <article class="card">
+                    <h3>プロジェクトB：データ可視化ダッシュボード</h3>
+                    <p>複雑なデータを直感的に理解できるインタラクティブなダッシュボードを開発。ReactとD3.jsを用いて、リアルタイム分析機能を提供しました。</p>
+                </article>
+                <article class="card">
+                    <h3>プロジェクトC：API連携モバイルアプリ</h3>
+                    <p>外部APIと連携し、特定サービスの情報を提供するモバイルアプリケーション。React Nativeでクロスプラットフォーム開発を行いました。</p>
+                </article>
+            </div>
         </section>
-      </main>
-    </div>
+
+        <section id="skills">
+            <h2 class="section-title">スキル</h2>
+            <div class="skills-container">
+                <span class="skill-chip" tabindex="0">HTML5</span>
+                <span class="skill-chip" tabindex="0">CSS3</span>
+                <span class="skill-chip" tabindex="0">JavaScript (ES6+)</span>
+                <span class="skill-chip" tabindex="0">React.js</span>
+                <span class="skill-chip" tabindex="0">Next.js</span>
+                <span class="skill-chip" tabindex="0">Node.js</span>
+                <span class="skill-chip" tabindex="0">Express.js</span>
+                <span class="skill-chip" tabindex="0">Python</span>
+                <span class="skill-chip" tabindex="0">Django</span>
+                <span class="skill-chip" tabindex="0">FastAPI</span>
+                <span class="skill-chip" tabindex="0">SQL (PostgreSQL)</span>
+                <span class="skill-chip" tabindex="0">NoSQL (MongoDB)</span>
+                <span class="skill-chip" tabindex="0">Git</span>
+                <span class="skill-chip" tabindex="0">Docker</span>
+                <span class="skill-chip" tabindex="0">クラウド (AWS/GCP)</span>
+                <span class="skill-chip" tabindex="0">UI/UXデザイン</span>
+                <span class="skill-chip" tabindex="0">レスポンシブデザイン</span>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">お問い合わせ</h2>
+            <p>プロジェクトのご相談やご質問がありましたら、お気軽にご連絡ください。</p>
+            <div class="contact-links">
+                <a href="mailto:your.email@example.com" aria-label="メールで連絡">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    メールを送る
+                </a>
+                <a href="https://github.com/your-github-username" target="_blank" rel="noopener noreferrer" aria-label="GitHubプロフィールを見る">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 3c0-.66-.5-1.2-1-1.2A3.37 3.37 0 0 0 18 1.5c-1.3-.12-1.95-.57-2.75-1.5H8.75c-.8 1-1.45 1.38-2.75 1.5A3.37 3.37 0 0 0 6 1.5c-.5 0-1 .54-1 1.2a5.07 5.07 0 0 0-.09 1.77A5.44 5.44 0 0 0 2 11c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 19"></path><path d="M12 4.75h-.01"></path></svg>
+                    GitHub
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Your Name. All rights reserved.</p>
+    </footer>
 
     <script>
-      // tiny enhancement: current year
-      document.getElementById('y').textContent = new Date().getFullYear();
+        // Set current year in the footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
-  </body>
+</body>
 </html>
