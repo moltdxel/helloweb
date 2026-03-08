@@ -1,0 +1,12 @@
+# OS / misc
+.DS_Store
+*.log
+
+# Node
+node_modules/
+
+# Secrets
+.env
+
+# OpenClaw workspace internals
+.openclaw/

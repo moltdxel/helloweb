@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello, Web — moltbot sample</title>
+    <meta name="description" content="GitHub Pages で公開できるシンプルなサンプルサイト" />
+    <meta property="og:title" content="Hello, Web" />
+    <meta property="og:description" content="GitHub Pages 用のサンプルホームページ" />
+    <meta property="og:type" content="website" />
+    <style>
+      :root{
+        --bg: #0b1020;
+        --card: rgba(255,255,255,.06);
+        --card2: rgba(255,255,255,.10);
+        --text: rgba(255,255,255,.92);
+        --muted: rgba(255,255,255,.72);
+        --line: rgba(255,255,255,.16);
+        --accent: #7c5cff;
+        --accent2: #00d2ff;
+        --shadow: 0 20px 60px rgba(0,0,0,.45);
+        --radius: 18px;
+      }
+      *{ box-sizing:border-box; }
+      body{
+        margin:0;
+        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(1200px 800px at 20% 10%, rgba(124,92,255,.35), transparent 60%),
+          radial-gradient(900px 700px at 90% 20%, rgba(0,210,255,.25), transparent 55%),
+          radial-gradient(900px 700px at 60% 95%, rgba(255,86,246,.16), transparent 55%),
+          linear-gradient(180deg, #070a14, var(--bg));
+        min-height:100vh;
+      }
+      a{ color: inherit; }
+      .wrap{
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 42px 18px 70px;
+      }
+      header{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap: 12px;
+      }
+      .brand{
+        display:flex;
+        align-items:center;
+        gap: 12px;
+      }
+      .logo{
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        box-shadow: 0 14px 40px rgba(124,92,255,.25);
+      }
+      .brand h1{
+        font-size: 16px;
+        letter-spacing: .06em;
+        margin:0;
+        color: rgba(255,255,255,.9);
+      }
+      nav{
+        display:flex;
+        gap: 10px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+      }
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap: 8px;
+        padding: 9px 12px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,.04);
+        border-radius: 999px;
+        text-decoration:none;
+        color: rgba(255,255,255,.86);
+        transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      }
+      .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.22); }
+
+      .hero{
+        margin-top: 26px;
+        padding: 28px;
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+        border: 1px solid rgba(255,255,255,.14);
+        box-shadow: var(--shadow);
+        overflow:hidden;
+        position:relative;
+      }
+      .hero:before{
+        content:"";
+        position:absolute;
+        inset:-2px;
+        background: radial-gradient(600px 320px at 30% 10%, rgba(124,92,255,.35), transparent 55%),
+                    radial-gradient(520px 320px at 75% 30%, rgba(0,210,255,.22), transparent 55%);
+        filter: blur(18px);
+        opacity:.9;
+        pointer-events:none;
+      }
+      .hero > *{ position:relative; }
+      .hero h2{
+        margin:0;
+        font-size: clamp(28px, 4vw, 44px);
+        letter-spacing: .01em;
+        line-height: 1.05;
+      }
+      .hero p{
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+        max-width: 64ch;
+      }
+      .ctaRow{
+        margin-top: 18px;
+        display:flex;
+        gap: 10px;
+        flex-wrap:wrap;
+      }
+      .btn{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,.18);
+        text-decoration:none;
+        background: rgba(255,255,255,.06);
+        color: rgba(255,255,255,.92);
+        transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      }
+      .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.24); }
+      .btn.primary{
+        background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,210,255,.75));
+        border-color: rgba(255,255,255,.26);
+        color: #08101f;
+        font-weight: 700;
+      }
+
+      .grid{
+        margin-top: 18px;
+        display:grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 12px;
+      }
+      .card{
+        grid-column: span 6;
+        padding: 18px;
+        border-radius: var(--radius);
+        background: var(--card);
+        border: 1px solid rgba(255,255,255,.12);
+      }
+      .card h3{ margin:0 0 8px; font-size: 16px; }
+      .card p{ margin:0; color: var(--muted); line-height: 1.7; }
+      .card small{ color: rgba(255,255,255,.62); }
+
+      .footer{
+        margin-top: 26px;
+        padding: 18px;
+        border-radius: var(--radius);
+        background: rgba(0,0,0,.18);
+        border: 1px solid rgba(255,255,255,.10);
+        color: rgba(255,255,255,.66);
+        display:flex;
+        justify-content:space-between;
+        gap: 12px;
+        flex-wrap:wrap;
+      }
+      code{
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: .95em;
+        padding: .15em .35em;
+        border-radius: 8px;
+        background: rgba(255,255,255,.06);
+        border: 1px solid rgba(255,255,255,.10);
+      }
+
+      @media (max-width: 760px){
+        .card{ grid-column: span 12; }
+        header{ align-items:flex-start; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="brand" aria-label="site brand">
+          <div class="logo" aria-hidden="true"></div>
+          <h1>Hello, Web</h1>
+        </div>
+        <nav aria-label="site navigation">
+          <a class="pill" href="#about">About</a>
+          <a class="pill" href="#links">Links</a>
+          <a class="pill" href="#howto">How-to</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" aria-label="hero">
+          <h2>GitHub Pages 用の<br />サンプルホームページ</h2>
+          <p>
+            これは <code>index.html</code> だけで動く、軽量・1ファイル構成のテンプレです。
+            GitHub Pages にコミットして公開できます。テキストとリンクを差し替えるだけで、すぐ自分のページになります。
+          </p>
+          <div class="ctaRow">
+            <a class="btn primary" href="https://github.com/moltdxel/helloweb" target="_blank" rel="noreferrer">Repo を開く</a>
+            <a class="btn" href="#howto">公開手順を見る</a>
+          </div>
+        </section>
+
+        <section class="grid" aria-label="content">
+          <article id="about" class="card">
+            <h3>About</h3>
+            <p>
+              目的は「最小構成で、ちゃんと見栄えする」こと。
+              余計なビルドや依存を入れず、Vibe コーディングの初速を上げます。
+            </p>
+          </article>
+
+          <article id="links" class="card">
+            <h3>Links</h3>
+            <p>
+              <a href="https://pages.github.com/" target="_blank" rel="noreferrer">GitHub Pages</a> /
+              <a href="https://docs.github.com/en/pages" target="_blank" rel="noreferrer">Docs</a> /
+              <a href="https://github.com/moltdxel" target="_blank" rel="noreferrer">@moltdxel</a>
+            </p>
+            <p style="margin-top:10px"><small>必要なら OGP 画像や favicon も足せます。</small></p>
+          </article>
+
+          <article id="howto" class="card">
+            <h3>How to publish (メモ)</h3>
+            <p>
+              GitHub → <code>Settings</code> → <code>Pages</code> → <code>Build and deployment</code> で
+              Branch を <code>main</code> / <code>/(root)</code> に設定。
+              反映後、数十秒〜数分で公開URLが出ます。
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Next ideas</h3>
+            <p>
+              ・作品一覧（カード）<br />
+              ・SNSリンク（X/GitHub/Blog）<br />
+              ・お問い合わせ（メールリンク or フォーム）<br />
+              ・ダーク/ライト切替
+            </p>
+          </article>
+        </section>
+
+        <section class="footer" aria-label="footer">
+          <div>© <span id="y"></span> Hello, Web</div>
+          <div>Made with <code>index.html</code> only.</div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      // tiny enhancement: current year
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
